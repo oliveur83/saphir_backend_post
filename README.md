@@ -15,7 +15,7 @@ Avant de commencer, assurez-vous d'avoir :
 git@github.com:oliveur83/saphir_backend_post.git
 ```
 
-2.Installer du de la source baranie en telechargent ce dossier sur ce lien 
+2.Installer du de la source baranie en telechargent ce dossier sur ce lien , a mettre a la racine de votre dossier 
 ```
 https://drive.google.com/drive/folders/1qQdvzp377pOeD-5zxt6ftDVmol9POAZN?usp=sharing
 ```
