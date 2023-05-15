@@ -12,10 +12,11 @@ avans de commencer assurer d'avoir
 ## Installation
 1. Clone the repository
 ```bash
-git clone https://github.com/jeankh/Saphir-Backend.git
+git@github.com:oliveur83/saphir_backend_post.git
 ```
 
-2. Install data of barani and rename a directory 'data_projet
+2.installer 
+
 
 3. in your code for 3 file he do change  the user and password 
 ```
