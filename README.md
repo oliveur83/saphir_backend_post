@@ -1,12 +1,13 @@
-    # Saphir Backend
-This project is a web application for reading data from a CSV file, modifying it, and storing it in an InfluxDB database using Python and Flask.
+# Saphir Backend
+Ce projet consiste en la création d'une base de données pour ensuite insérer les données de deux types de sources (Météo France et Barani).
 
-## Getting Started
+## commener 
 ### Prerequisites
-Before you start, make sure you have the following software installed
+avans de commencer assurer d'avoir 
 
-- Python 3
-- InfluxDB
+- Python 3.10.11
+- flask 
+- PostgreSQL 15
 
 ## Installation
 1. Clone the repository
