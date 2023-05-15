@@ -1,34 +1,34 @@
-Saphir Backend
-
+# Saphir Backend
 Ce projet consiste en la création d'une base de données pour ensuite insérer les données de deux types de sources (Météo France et Barani).
-Commencer
-Prérequis
 
+## commener 
+### Prerequisites
 Avant de commencer, assurez-vous d'avoir :
 
-    Python 3.10.11
-    Flask
-    PostgreSQL 15
+- Python 3.10.11
+- flask 
+- PostgreSQL 15
 
-Installation
+## Installation
+1. Clonez le dépôt
+```bash
+git@github.com:oliveur83/saphir_backend_post.git
+```
 
-    Clonez le dépôt
+2.Installer du de la source baranie en telechargent ce dossier sur ce lien 
+```
 
-bash
+```
 
-git clone git@github.com:oliveur83/saphir_backend_post.git
+3.Dans PostgreSQL, créez une base de données nommée "saphir"
 
-    Installez la source Barani en téléchargeant ce dossier à partir de ce lien
-
-    Dans PostgreSQL, créez une base de données nommée "saphir"
-
-    Modifiez les fichiers main.py et lecture_fichier.py en spécifiant votre nom d'utilisateur et votre mot de passe :
-
-sql
-
+4. Modifiez les fichiers main.py et lecture_fichier.py en spécifiant votre nom d'utilisateur et votre mot de passe :
+```
  host = "localhost"
     database = "saphir" 
-    user = "postgres"
-    password = "toto"
+    user = "votre_nom"
+    password = "votre_mot_de_passe"
+```
 
-    Exécutez le fichier main.py et cela devrait fonctionner.
+
+5. Exécutez le fichier main.py et cela devrait fonctionner.
