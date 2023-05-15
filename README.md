@@ -17,7 +17,7 @@ git@github.com:oliveur83/saphir_backend_post.git
 
 2.Installer du de la source baranie en telechargent ce dossier sur ce lien 
 ```
-
+https://drive.google.com/drive/folders/1qQdvzp377pOeD-5zxt6ftDVmol9POAZN?usp=sharing
 ```
 
 3.Dans PostgreSQL, créez une base de données nommée "saphir"
