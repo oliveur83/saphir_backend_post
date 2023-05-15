@@ -30,5 +30,10 @@ https://drive.google.com/drive/folders/1qQdvzp377pOeD-5zxt6ftDVmol9POAZN?usp=sha
     password = "votre_mot_de_passe"
 ```
 
+5.Votre structure doit resemble a celle ci.
+├── PROJETS
+│   ├── Data_projet
+│   ├── Datame_projet
+│   └── projet_saphir
 
-5. Exécutez le fichier main.py et cela devrait fonctionner.
+6. Exécutez le fichier main.py et cela devrait fonctionner.
