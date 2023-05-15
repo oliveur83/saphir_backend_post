@@ -2,7 +2,8 @@ import psycopg2
 def creation_bdd():
     # Connexion à la base de données PostgreSQL
     """
-    connexion a la base de donnée 
+    connexion a la base de donnée, création des 6 tables 
+    insertion de toute les donnée sources et station  
     """
     host = "localhost"
     database = "saphir" 
@@ -313,13 +314,4 @@ INSERT INTO public.station(
     cur.execute(remplissage_station)
     cur.execute(remplissage_data_type)
     conn.commit()
-    
-    # Fermeture du curseur et de la connexion
-    # Requête SQL pour obtenir la liste des tables
-    cur.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")
-
-    # Récupération des résultats de la requête
-    tables = cur.fetchall()
-    for table in tables:
-        print(table[0])
     conn.close()

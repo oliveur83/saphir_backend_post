@@ -3,10 +3,26 @@ import pandas as pd
 import psycopg2
 from datetime import datetime
 #variable global pour les fichier (inconforme)
-level_up=False
+collonne_en_plus=False
 
-level2_up=False
+collonne_en_plus_2=False
 cpt=0
+def connect_to_database():
+
+    """
+    connexion a la base de donée
+    """
+    host = "localhost"
+    database = "saphir" 
+    user = "postgres"
+    password = "toto"
+    conn = psycopg2.connect(
+        host=host,
+        database=database,
+        user=user,
+        password=password
+    )
+    return conn
 
 def barani_1_cat(chemin_dossier_baranie,nom_fichier,conn):
     """
@@ -23,38 +39,26 @@ def barani_1_cat(chemin_dossier_baranie,nom_fichier,conn):
     Raises:
         None
     """
-    global level_up,cpt
+    global collonne_en_plus,cpt
     # fais le chemin complet pour lecture 
     chemin_fichier=chemin_dossier_baranie+'/'+nom_fichier 
      # Détermine si le fichier est le premier fichier ou le deuxième fichier pour 13 champs
     if nom_fichier =="2108SW031-2022-04-12.csv":
-        level_up=False
+        collonne_en_plus=False
     if nom_fichier =="2108SW030-2022-04-21.csv" or nom_fichier =="2108SW031-2022-04-21.csv" :
        
         debut = pd.read_csv(chemin_fichier, delimiter=";", nrows=85)
         
         dfin = pd.read_csv(chemin_fichier, delimiter=";",skiprows=87, header=None,usecols=[0,1,2,3,4,5,6,7,8,9,10,11,12])
-        level_up=True
+        collonne_en_plus=True
     else:
        
-        if level_up==False:
+        if collonne_en_plus==False:
             df = pd.read_csv(chemin_fichier, delimiter=";")
         else:
-            print("ot")
+            
             df = pd.read_csv(chemin_fichier, delimiter=";", header=None,skiprows=1,usecols=[0,1,2,3,4,5,6,7,8,9,10,11,12])
-    host = "localhost"
-    database = "saphir" 
-    user = "postgres"
-    password = "toto"
-
-    # Connexion à la base de données
-    conn = psycopg2.connect(
-    host=host,
-    database=database,
-    user=user,
-    password=password
-    )
-    
+    conn = connect_to_database()
     cur = conn.cursor()
     # Obtenir les valeurs de chaque colonne pour les 13 champs 
 
@@ -78,8 +82,6 @@ def barani_1_cat(chemin_dossier_baranie,nom_fichier,conn):
         wdir_stdevs = debut['Wdir_Stdev10'].tolist()
         i=0
         while i< (len(date)):
-            # TODO : if nom fichier 2108SW030-2022-04-21.csv faire 86 et apres 
-            #print(date[i], stations[i], batteries[i], wdir_avgs[i], wdir_gusts[i], wdir_maxs[i], wdir_mins[i], wind_avgs[i], wind_maxs[i], wind_mins[i], wind_stdevs[i], wdir_stdevs[i])
             cur.execute("INSERT INTO wind_barani (date, station, battery, wdir_avg, wdir_gust, wdir_max, wdir_min, wind_avg, wind_max, wind_min, wind_stdev, wdir_stdev) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)ON CONFLICT DO NOTHING", (date[i], stations[i], batteries[i], wdir_avgs[i], wdir_gusts[i], wdir_maxs[i], wdir_mins[i], wind_avgs[i], wind_maxs[i], wind_mins[i], wind_stdevs[i], wdir_stdevs[i]))
             cpt=cpt+1
             print(" nombre total :",cpt ,"fichier ", i,"nom fichier",nom_fichier)
@@ -105,8 +107,6 @@ def barani_1_cat(chemin_dossier_baranie,nom_fichier,conn):
         wdir_stdevs = dfin[12].tolist()
         i=0
         while i< (len(date2)):
-            # TODO : if nom fichier 2108SW030-2022-04-21.csv faire 86 et apres 
-            #print(date[i], stations[i], batteries[i], wdir_avgs[i], wdir_gusts[i], wdir_maxs[i], wdir_mins[i], wind_avgs[i], wind_maxs[i], wind_mins[i], wind_stdevs[i], wdir_stdevs[i])
             cur.execute("INSERT INTO wind_barani (date, timestanp, station, battery, wdir_avg, wdir_gust, wdir_max, wdir_min, wind_avg, wind_max, wind_min, wind_stdev, wdir_stdev) VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)ON CONFLICT DO NOTHING", (date2[i],timetime[i], stations[i], batteries[i], wdir_avgs[i], wdir_gusts[i], wdir_maxs[i], wdir_mins[i], wind_avgs[i], wind_maxs[i], wind_mins[i], wind_stdevs[i], wdir_stdevs[i]))
             cpt=cpt+1
             print(" nombre total :",cpt ,"fichier ", i,"nom fichier",nom_fichier)
@@ -119,7 +119,7 @@ def barani_1_cat(chemin_dossier_baranie,nom_fichier,conn):
         
     else:
         # pour les 12 champs et les 13 champs sur fichier complet 
-        if level_up==False:
+        if collonne_en_plus==False:
             date= df['date'].tolist()
            
             date = [datetime.strptime(date_str, '%d.%m.%Y %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S') for date_str in date]
@@ -182,31 +182,19 @@ def barani_2_cat(chemin_dossier_baranie,nom_fichier,conn):
     Returns:
         None
     """
-    global cpt,level2_up
+    global cpt,collonne_en_plus_2
     # Chemin du fichier Barani
     chemin_fichier=chemin_dossier_baranie+'/'+nom_fichier    
     if nom_fichier=='2008SH025-2022-04-14.csv':
         df = pd.read_csv(chemin_fichier, delimiter=";", header=None,skiprows=2,usecols=[0,1,2,3,4,5,6,7,8,9,10])
-        level2_up=True
+        collonne_en_plus_2=True
     else:    
-        if level2_up==True:
+        if collonne_en_plus_2==True:
             df = pd.read_csv(chemin_fichier, delimiter=";", header=None,skiprows=2,usecols=[0,1,2,3,4,5,6,7,8,9,10])
         else:
             # Lecture du fichier Barani
             df = pd.read_csv(chemin_fichier, delimiter=";", header=None,skiprows=2,usecols=[0,1,2,3,4,5,6,7,8,9,10,11])
-    # Informations de connexion à la base de données PostgreSQL
-    host = "localhost"
-    database = "saphir" 
-    user = "postgres"
-    password = "toto"
-
-    # Connexion à la base de données
-    conn = psycopg2.connect(
-    host=host,
-    database=database,
-    user=user,
-    password=password
-    )
+    conn = connect_to_database()
     cur = conn.cursor()
     #mettre la date au bont format 
     df[0] = df[0].astype(str)
@@ -214,7 +202,7 @@ def barani_2_cat(chemin_dossier_baranie,nom_fichier,conn):
     date= df[0].tolist()
     date.pop(0)
     date = [datetime.strptime(date_str, '%d.%m.%Y %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S') for date_str in date]
-    if level2_up==False:
+    if collonne_en_plus_2==False:
         # Extraction des autres colonnes
         station = df[2].tolist()
         #timetime est timestamp
@@ -316,20 +304,7 @@ def meteo_fr_1_cat(chemin_dossier, nom_fichier):
     T = data["T"].tolist()
     FF2 = data["FF2"].tolist()
     DD2 = data["DD2"].tolist()
-
-    # Informations de connexion à la base de données
-    host = "localhost"
-    database = "saphir" 
-    user = "postgres"
-    password = "toto"
-
-    # Connexion à la base de données
-    conn = psycopg2.connect(
-    host=host,
-    database=database,
-    user=user,
-    password=password
-    )
+    conn = connect_to_database()
     cur = conn.cursor()
     i=0
     while i<len(POSTE):
@@ -384,19 +359,7 @@ def meteo_fr_2_cat(chemin_fichier,nom_fichier):
     DD = data["DD"].tolist()
     U = data["U"].tolist()
     INS = data["INS"].tolist()
-# Informations de connexion à la base de données
-    host = "localhost"
-    database = "saphir" 
-    user = "postgres"
-    password = "toto"
-
-    # Connexion à la base de données
-    conn = psycopg2.connect(
-    host=host,
-    database=database,
-    user=user,
-    password=password
-    )
+    conn = connect_to_database()
     cur = conn.cursor()
     global cpt
     i=0
