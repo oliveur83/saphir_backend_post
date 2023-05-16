@@ -41,12 +41,12 @@ https://drive.google.com/drive/folders/1qQdvzp377pOeD-5zxt6ftDVmol9POAZN?usp=sha
 
 ```
 4.Votre structure doit resemble a celle ci.
-
+```
 ├── PROJETS
 │   ├── Data_projet
 │   ├── Datame_projet
 │   └── projet_saphir
-
+```
 5. installer psycopg2 
 ```
 pip install psycopg2 
