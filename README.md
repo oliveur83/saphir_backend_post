@@ -1,8 +1,9 @@
-#Projet Python - Gestion de données avec PostgreSQL-SAPHIR
+# Projet Python - Gestion de données avec PostgreSQL-SAPHIR
+
 Ce projet consiste en la création d'une base de données pour ensuite insérer les données de deux types de sources (Météo France et Barani).
 Ce projet Python vise donc a  lire des fichiers CSV, insérer leurs données dans une base de données PostgreSQL, créer la base de données puis relier ces deux fonctionnalités en traitant des requêtes HTTP avec des requêtes SQL.
 
-# cStructure du projet
+# Structure du projet
 Le projet est composé des fichiers suivants :
 
     lecture_fichier.py : Ce fichier lit les fichiers CSV et insère les données correspondantes dans la base de données PostgreSQL.
