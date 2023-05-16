@@ -41,6 +41,7 @@ https://drive.google.com/drive/folders/1qQdvzp377pOeD-5zxt6ftDVmol9POAZN?usp=sha
 
 ```
 4.Votre structure doit resemble a celle ci.
+
 ├── PROJETS
 │   ├── Data_projet
 │   ├── Datame_projet
@@ -51,8 +52,10 @@ https://drive.google.com/drive/folders/1qQdvzp377pOeD-5zxt6ftDVmol9POAZN?usp=sha
 pip install psycopg2 
 ```
 #Utilisation
+
 Exécutez main.py pour crée la base de donnée et inserer les donnée 
 attention: 7 million de ligne sont a inserer c'est long.
 
 #auteurs 
+
 OLIVIER-OLIVEUR83
