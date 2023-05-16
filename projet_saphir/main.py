@@ -9,20 +9,11 @@ import json
 
 def main():
     """
-    connexion a la base de donnée 
+    Fonction principale
     """
-    host = "localhost"
-    database = "saphir" 
-    user = "postgres"
-    password = "toto"
 
     # Connexion à la base de données
-    conn = psycopg2.connect(
-    host=host,
-    database=database,
-    user=user,
-    password=password
-    )
+    conn = connect_to_database()
     #creation de la base de donnée
     creation_bdd()
 
@@ -33,9 +24,11 @@ def main():
     # chemin pour baranie
     chemin_actuel = os.getcwd()
     chemin_dossier_baranie = chemin_actuel+'/projets/data_projet'
+    
     # chemin pour meteo france 
     chemin_dossier_meteo_wind = chemin_actuel+'/projets/datame_saphir/Wind2m_Rain_Temp'
     chemin_dossier_meteo_10wind = chemin_actuel+'/projets/datame_saphir/Wind10m_inso_Relamoist_statpress'
+    
     # Parcourez les fichiers du dossier baranie
     for nom_fichier in os.listdir(chemin_dossier_baranie):
         # Si le chemin correspond à un dossier type 
@@ -57,7 +50,7 @@ def main():
         if nom_fichier[0]=='C':
             print(nom_fichier)
           #  meteo_fr_2_cat(chemin_dossier_meteo_10wind,nom_fichier)
-    print("meteo insertion reussi")
+    print("meteo france reussi")
 
 
 app = Flask(__name__)
@@ -65,7 +58,7 @@ app = Flask(__name__)
 def connect_to_database():
 
     """
-    connexion a la base de donée
+    Fonction pour se connecter à la base de données
     """
     host = "localhost"
     database = "saphir" 
@@ -81,6 +74,9 @@ def connect_to_database():
 
 @app.route('/datatypes')
 def get_datatypes():
+    """
+    Route pour récupérer les types de données
+    """
     source = request.args.get('source')
     conn = connect_to_database()
     cur = conn.cursor()
@@ -99,6 +95,9 @@ def get_datatypes():
 
 @app.route('/station')
 def get_station():
+    """
+    Route pour récupérer les stations
+    """
     source = request.args.get('source')
     datatype = request.args.get('datatype')
     conn = connect_to_database()
@@ -126,6 +125,9 @@ def get_station():
 
 @app.route('/data')
 def get_data():
+    """
+    Route pour récupérer les données
+    """
     datatype = request.args.get('datatype')
     date_fin = request.args.get('date_fin')
     date_debut = request.args.get('date_debut')
@@ -158,6 +160,9 @@ def get_data():
 
 @app.route('/sources')
 def get_sources():
+    """
+    Route pour récupérer les sources    
+    """
     conn = connect_to_database()
     cur = conn.cursor()
     cur.execute("SELECT json_agg(source.*) FROM source")
