@@ -16,6 +16,7 @@ Avant de commencer, assurez-vous d'avoir :
 - Python 3.10.11(https://www.python.org/downloads/)
 - flask 
 - PostgreSQL 15(https://www.postgresql.org/download/)
+- psycopg2
 
 ## Installation
 1. Clonez ce référentiel GitHub :
